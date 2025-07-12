@@ -1,6 +1,6 @@
 local api, fn, ffi = vim.api, vim.fn, require('ffi')
 local group = api.nvim_create_augroup('MTMgroup', {})
-local mtm_startup = false
+local mtm_startup = true
 
 ffi.cdef([[
   typedef int32_t linenr_T;
