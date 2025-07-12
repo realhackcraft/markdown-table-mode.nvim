@@ -19,10 +19,10 @@ local opt = {
     '*.md',
   },
   options = {
-    insert = true, -- when typing "|"
-    insert_leave = true, -- when leaving insert
+    insert = true,              -- when typing "|"
+    insert_leave = true,        -- when leaving insert
     pad_separator_line = false, -- add space in separator line
-    align_style = 'default', -- default, left, center, right
+    align_style = 'default',    -- default, left, center, right
   },
 }
 
@@ -107,7 +107,7 @@ local function get_table_infos()
   local table_infos = {}
   local cursor_pos = api.nvim_win_get_cursor(0)
   table_infos.table_start_line_number, table_infos.table_end_line_number =
-    find_table_range(cursor_pos, -1), find_table_range(cursor_pos, 1)
+      find_table_range(cursor_pos, -1), find_table_range(cursor_pos, 1)
   table_infos.current_table = api.nvim_buf_get_lines(
     0,
     table_infos.table_start_line_number - 1,
@@ -207,6 +207,7 @@ end
 
 local function init()
   local acid = nil
+
   if opt.options.insert_leave then
     acid = api.nvim_create_autocmd('InsertLeave', {
       group = group,
@@ -226,10 +227,10 @@ end
 
 local function final(acid)
   if opt.options.insert_leave and acid then
-    api.nvim_del_autocmd(acid)
+    pcall(api.nvim_del_autocmd, acid)
   end
   if opt.options.insert then
-    vim.keymap.del('i', '|', {})
+    pcall(vim.keymap.del, 'i', '|', {})
   end
 end
 
